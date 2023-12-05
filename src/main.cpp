@@ -10,11 +10,9 @@ int main(int argc, char** argv) {
     MPI_Comm_size(MPI_COMM_WORLD, &world_size);
     MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
 
-    std::vector<std::string> menu = {"Паста", "Пицца", "Суп", "Салат", "Стейк"};
-  
     // Повар
     if (world_rank == 0) {
-        
+        std::vector<std::string> menu = {"Паста", "Пицца", "Суп", "Салат", "Стейк"};
         int students = 15;
 
         for (int i = 0; i < students * 2; ++i) {
@@ -40,7 +38,8 @@ int main(int argc, char** argv) {
     else {
         for (int i = 0; i < 2; ++i) {
             MPI_Request request;
-            std::string dish = menu % ;  // Произвольное начальное блюдо
+            std::vector<std::string> menu = {"Паста", "Пицца", "Суп", "Салат", "Стейк"};
+            std::string dish = menu[rand() % menu.size()];  // Выбираем случайное блюдо
 
             // Отправляем заказ повару
             MPI_Isend(&dish[0], dish.size() + 1, MPI_CHAR, 0, 0, MPI_COMM_WORLD, &request);
