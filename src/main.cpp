@@ -24,7 +24,7 @@ int main(int argc, char** argv) {
             int dish;
 
             // Принимаем заказ от студента
-            MPI_Irecv(&dish, 1, MPI_CHAR, MPI_ANY_SOURCE, 0, MPI_COMM_WORLD, &request);
+            MPI_Irecv(&dish, 1, MPI_INT, MPI_ANY_SOURCE, 0, MPI_COMM_WORLD, &request);
             MPI_Wait(&request, &status);
             std::cout << "Повар принял заказ от студента " << status.MPI_SOURCE << ": " << menu[dish] << std::endl;
 
@@ -32,7 +32,7 @@ int main(int argc, char** argv) {
             usleep(100000); // Имитация приготовления блюда
 
             // Выдаем блюдо студенту
-            MPI_Isend(&dish, 1, MPI_CHAR, status.MPI_SOURCE, 0, MPI_COMM_WORLD, &request);
+            MPI_Isend(&dish, 1, MPI_INT, status.MPI_SOURCE, 0, MPI_COMM_WORLD, &request);
             MPI_Wait(&request, MPI_STATUS_IGNORE);
             std::cout << "Повар выдал блюдо студенту " << status.MPI_SOURCE << ": " << menu[dish] << std::endl;
         }
