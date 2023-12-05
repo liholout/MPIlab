@@ -29,4 +29,4 @@ jobs:
 
     - name: Run MPI program
       run: |
-        mpirun -np 7 ./my_mpi_program
+        mpirun -np 16 ./my_mpi_program
