@@ -22,7 +22,7 @@ int main(int argc, char** argv) {
             std::string dish;
 
             // Принимаем заказ от студента
-            MPI_Irecv(&dish[0], dish.size(), MPI_CHAR, MPI_ANY_SOURCE, 0, MPI_COMM_WORLD, &request);
+            MPI_Irecv(&dish[0], dish.size() + 1, MPI_CHAR, MPI_ANY_SOURCE, 0, MPI_COMM_WORLD, &request);
             MPI_Wait(&request, &status);
             std::cout << "Повар принял заказ от студента " << status.MPI_SOURCE << ": " << dish << std::endl;
 
@@ -48,7 +48,7 @@ int main(int argc, char** argv) {
             std::cout << "Студент " << world_rank << " отправил заказ повару: " << dish << std::endl;
 
             // Принимаем блюдо от повара
-            MPI_Irecv(&dish[0], dish.size(), MPI_CHAR, 0, 0, MPI_COMM_WORLD, &request);
+            MPI_Irecv(&dish[0], dish.size() + 1, MPI_CHAR, 0, 0, MPI_COMM_WORLD, &request);
             MPI_Wait(&request, MPI_STATUS_IGNORE);
             std::cout << "Студент " << world_rank << " получил блюдо от повара: " << dish << std::endl;
         }
