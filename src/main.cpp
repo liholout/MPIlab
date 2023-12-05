@@ -44,8 +44,7 @@ int main(int argc, char** argv) {
             srand(static_cast<unsigned int>(time(nullptr)));
             MPI_Request request;
             std::vector<std::string> menu = {"Паста", "Пицца", "Суп", "Салат", "Стейк"};
-            char random_dish[] = menu[rng() % menu.size()];
-            char* p = &random_dish;
+            int random_dish = rng() % menu.size();
             
             // Отправляем заказ повару
             MPI_Isend(&random_dish, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, &request);
