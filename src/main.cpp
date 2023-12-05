@@ -44,18 +44,19 @@ int main(int argc, char** argv) {
             srand(static_cast<unsigned int>(time(nullptr)));
             MPI_Request request;
             std::vector<std::string> menu = {"Паста", "Пицца", "Суп", "Салат", "Стейк"};
-            int random_dish = rng() % menu.size();
+            char random_dish[] = menu[rng() % menu.size()];
+            char* p = &random_dish;
             
             // Отправляем заказ повару
             MPI_Isend(&random_dish, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, &request);
             MPI_Wait(&request, MPI_STATUS_IGNORE);
-            std::cout << "Студент " << world_rank << " отправил заказ повару: " << dish << std::endl;
+            std::cout << "Студент " << world_rank << " отправил заказ повару: " << dish[random_dish] << std::endl;
 
 
             // Принимаем блюдо от повара
             MPI_Irecv(&random_dish, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, &request);
             MPI_Wait(&request, MPI_STATUS_IGNORE);
-            std::cout << "Студент " << world_rank << " получил блюдо от повара: " << dish << std::endl;
+            std::cout << "Студент " << world_rank << " получил блюдо от повара: " << dish[random_dish] << std::endl;
         }
     }
 
