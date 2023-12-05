@@ -2,6 +2,7 @@
 #include <mpi.h>
 #include <vector>
 #include <string>
+#include <unistd.h>
 
 int main(int argc, char** argv) {
     MPI_Init(&argc, &argv);
