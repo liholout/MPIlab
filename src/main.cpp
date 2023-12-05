@@ -32,7 +32,7 @@ int main(int argc, char** argv) {
             usleep(100000); // Имитация приготовления блюда
 
             // Выдаем блюдо студенту
-            MPI_Isend(&dish[0, dish.size() + 1, MPI_CHAR, status.MPI_SOURCE, 0, MPI_COMM_WORLD, &request);
+            MPI_Isend(&dish, dish.size() + 1, MPI_CHAR, status.MPI_SOURCE, 0, MPI_COMM_WORLD, &request);
             MPI_Wait(&request, MPI_STATUS_IGNORE);
             std::cout << "Повар выдал блюдо студенту " << status.MPI_SOURCE << ": " << dish << std::endl;
         }
