@@ -50,13 +50,13 @@ int main(int argc, char** argv) {
             // Отправляем заказ повару
             MPI_Isend(&random_dish, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, &request);
             MPI_Wait(&request, MPI_STATUS_IGNORE);
-            std::cout << "Студент " << world_rank << " отправил заказ повару: " << dish[random_dish] << std::endl;
+            std::cout << "Студент " << world_rank << " отправил заказ повару: " << menu[random_dish] << std::endl;
 
 
             // Принимаем блюдо от повара
             MPI_Irecv(&random_dish, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, &request);
             MPI_Wait(&request, MPI_STATUS_IGNORE);
-            std::cout << "Студент " << world_rank << " получил блюдо от повара: " << dish[random_dish] << std::endl;
+            std::cout << "Студент " << world_rank << " получил блюдо от повара: " << menu[random_dish] << std::endl;
         }
     }
 
